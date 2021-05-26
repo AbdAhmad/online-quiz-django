@@ -1,0 +1,21 @@
+{% extends 'quiz_app/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ question_form|crispy }}
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="submit">Create Question</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

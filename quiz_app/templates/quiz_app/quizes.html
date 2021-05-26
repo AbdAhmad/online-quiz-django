@@ -1,0 +1,24 @@
+{% extends 'quiz_app/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h3>
+                        Quizes
+                    </h3>
+                </div>
+                {% for quiz in quizes %}
+                <a href="{% url 'quiz' quiz.id %}">{{ quiz.quiz_name }}  Number of questions: {{ quiz.number_of_questions }}</a>
+                <br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
