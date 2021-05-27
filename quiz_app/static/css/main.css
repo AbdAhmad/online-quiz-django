@@ -9,3 +9,9 @@
 .input_padding{
     padding-left: 10px;
 }
+
+.answer{
+    color: green;
+    display: none;
+}
+

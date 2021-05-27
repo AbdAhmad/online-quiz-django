@@ -1,6 +1,7 @@
 {% extends 'quiz_app/base.html' %}
 
 {% block content %}
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
@@ -9,20 +10,32 @@
 
                 <label">{{question}}</label>
                 <br>
-                <label><input type="radio" name="{{question}}"> {{question.option_one}}</label>
+                <label><input class="rb" type="radio" name="{{question.id}}" value="{{question.option_one}}"> {{question.option_one}}</label>
                 <br>
-                <label><input type="radio" name="{{question}}"> {{question.option_two}}</label>
+                <label><input class="rb" type="radio" name="{{question.id}}" value="{{question.option_two}}"> {{question.option_two}}</label>
                 <br>
-                <label><input type="radio" name="{{question}}"> {{question.option_three}}</label>
+                <label><input class="rb" type="radio" name="{{question.id}}" value="{{question.option_three}}"> {{question.option_three}}</label>
                 <br>
-                <label><input type="radio" name="{{question}}"> {{question.option_four}}</label>
+                <label><input class="rb" type="radio" name="{{question.id}}" value="{{question.option_four}}"> {{question.option_four}}</label>
                 <br>
+                <label class="answer" ><b>{{question.answer}}</b></label>
                 <br>
                 
                 {% endfor %}
             </div>
+            <div class="d-grid gap-2">
+                <button id="submit_ans" class="btn btn-primary" type="submit">Submit Answers</button>
+            </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        $('#submit_ans').click(function(){
+                $(".answer").show();
+                $(".rb").attr('disabled', true);
+        });
+    });
+</script>
 
 {% endblock %}

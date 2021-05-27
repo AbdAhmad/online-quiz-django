@@ -119,4 +119,5 @@ def delete_quiz(request, pk):
     quiz = Quiz.objects.get(pk=1)
     quiz.delete()
     return redirect('/')
+
         

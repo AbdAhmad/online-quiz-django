@@ -5,7 +5,7 @@ from .models import Quiz, Question
 class QuizForm(forms.ModelForm):
     class Meta:
         model = Quiz
-        fields = ['quiz_name', 'number_of_questions']
+        fields = ['quiz_name']
 
 class QuestionForm(forms.ModelForm):
     class Meta:

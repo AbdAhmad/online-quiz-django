@@ -24,3 +24,10 @@ function loginPasswordVisibilityToggle() {
             myInput.type = "password";
         }
 }
+
+function setTimer(){
+    var message_ele = document.getElementById("message_container");
+    setTimeout(function(){ 
+    message_ele.style.display = "none"; 
+    }, 3000);
+}
