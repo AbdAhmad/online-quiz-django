@@ -5,7 +5,8 @@ from django.contrib import messages
 from .models import Quiz, Question
 from django.http import JsonResponse
 from .forms import QuestionForm, QuizForm
-
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def signup(request):
@@ -53,7 +54,7 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             messages.success(request, 'Welcome ' + username)
-            return redirect('/')
+            return redirect('welcome')
         else:
             messages.error(request, 'Wrong credentials')
             return redirect('login')
@@ -63,67 +64,57 @@ def login(request):
         else:
             return render(request, 'quiz_app/login.html')
 
+
+@login_required
 def logout(request):
     auth.logout(request)
-    return redirect('/')
+    return redirect('welcome')
 
-def index(request):
+
+def welcome(request):
     if request.method == 'POST':
-        return redirect('/')
+        return redirect('/') 
     else:
-        return render(request, 'quiz_app/index.html')
+        return render(request, 'quiz_app/welcome.html')
+
 
 def quizes(request):
     quizes = Quiz.objects.all()
     return render(request, 'quiz_app/quizes.html', {'quizes': quizes})
 
+
 def quiz(request, id):
-    raw_questions = Question.objects.filter(quiz=id)
-    questions = []
-    for raw_question in raw_questions:
-        question = {}
-        question['question'] = raw_question.question
-        question['answer'] = raw_question.answer
-        options = []
-        options.append(raw_questions.option_one)
-        options.append(raw_questions.two)
-        options.append(raw_questions.three)
-        options.append(raw_questions.four)
-        question.append(options)
-        questions.append(question)
-    return JsonResponse(questions)
-        
-    # questions = Question.objects.filter()
-    # questions = []
-    # for question in quiz:
-    #     answers = []
-    #     for answer in question:
-    #         answers.append(answer.answer)
-    #     questions.append({str(question): answers})
-   
+    questions = Question.objects.filter(quiz=id)   
     return render(request, 'quiz_app/quiz.html', {'questions': questions})
 
 
+@login_required
 def create_quiz(request):
     if request.method == 'POST':
         quiz_form = QuizForm(request.POST)
         if quiz_form.is_valid():
             quiz_form.save()
-            redirect('create_questions')
+            messages.success(request, 'Quiz created succesfully')
+            redirect('create_question')
     else:
         quiz_form = QuizForm()
     return render(request, 'quiz_app/create_quiz.html', {'quiz_form': quiz_form})
 
-def create_questions(request):
+
+@login_required
+def create_question(request):
     if request.method == 'POST':
         question_form = QuestionForm(request.POST)
         if question_form.is_valid():
             question_form.save()
-            return redirect('create_questions')
+            messages.success(request, 'Question added succesfully')
+            return redirect('create_question')
     else:
         question_form = QuestionForm()
-    return render(request, 'quiz_app/create_questions.html', {'question_form': question_form})
+    return render(request, 'quiz_app/create_question.html', {'question_form': question_form})
 
+
+@login_required
 def delete_quiz(request, pk):
     quiz = Quiz.objects.get(pk=1)
     quiz.delete()

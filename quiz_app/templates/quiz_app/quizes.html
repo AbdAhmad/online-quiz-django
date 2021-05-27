@@ -12,7 +12,7 @@
                     </h3>
                 </div>
                 {% for quiz in quizes %}
-                <a href="{% url 'quiz' quiz.id %}">{{ quiz.quiz_name }}  Number of questions: {{ quiz.number_of_questions }}</a>
+                <a href="{% url 'quiz' quiz.id %}">{{ quiz.quiz_name }}</a>
                 <br>
                 {% endfor %}
             </div>

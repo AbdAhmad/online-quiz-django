@@ -1,5 +1,28 @@
 {% extends 'quiz_app/base.html' %}
 
 {% block content %}
-{{questions}}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                {% for question in questions %}
+
+                <label">{{question}}</label>
+                <br>
+                <label><input type="radio" name="{{question}}"> {{question.option_one}}</label>
+                <br>
+                <label><input type="radio" name="{{question}}"> {{question.option_two}}</label>
+                <br>
+                <label><input type="radio" name="{{question}}"> {{question.option_three}}</label>
+                <br>
+                <label><input type="radio" name="{{question}}"> {{question.option_four}}</label>
+                <br>
+                <br>
+                
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
