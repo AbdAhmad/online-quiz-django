@@ -8,13 +8,15 @@
             <div class="card">
                 <div class="card-header">
                     <h3>
-                        Quizes
+                        My Quizes
                     </h3>
                 </div>
-                {% for quiz in quizes %}
+                {% for quiz in my_quizes %}
                 <a href="{% url 'quiz' quiz.id %}">{{ quiz.quiz_name }}</a>
-                <a href="{% url 'profile' %}"> by {{ request.user }}</a>
                 <br>
+                <a href="{% url 'edit_quiz' quiz.id %}">Edit Quiz</a>
+                <br>
+                <a href="{% url 'delete_quiz' quiz.id %}">Delete Quiz</a>
                 {% endfor %}
             </div>
         </div>
@@ -22,4 +24,3 @@
 </div>
 
 {% endblock %}
-

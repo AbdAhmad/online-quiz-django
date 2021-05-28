@@ -8,11 +8,11 @@
             <div class="card">
                 <div class="card-header">
                     <h3>
-                        Quizes
+                        My Questions
                     </h3>
                 </div>
-                {% for quiz in quizes %}
-                <a href="{% url 'quiz' quiz.id %}">{{ quiz.quiz_name }}</a>
+                {% for question in my_questions %}
+                <a href="{% url 'question' question.id %}">{{ question }}</a>
                 <a href="{% url 'profile' %}"> by {{ request.user }}</a>
                 <br>
                 {% endfor %}

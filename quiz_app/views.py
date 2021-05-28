@@ -1,10 +1,9 @@
-from django.db.models.query_utils import Q
+# from django.db.models.query_utils import Q
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
-from .models import Quiz, Question
-from django.http import JsonResponse
-from .forms import QuestionForm, QuizForm
+from .models import Quiz, Question, Profile
+from .forms import QuestionForm, QuizForm, EditProfileForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -93,7 +92,9 @@ def create_quiz(request):
     if request.method == 'POST':
         quiz_form = QuizForm(request.POST)
         if quiz_form.is_valid():
-            quiz_form.save()
+            quiz = quiz_form.save(commit=False)
+            quiz.author = request.user
+            quiz.save()
             messages.success(request, 'Quiz created succesfully')
             redirect('create_question')
     else:
@@ -115,9 +116,75 @@ def create_question(request):
 
 
 @login_required
+def my_quizes(request):
+    user = request.user
+    my_quizes = Quiz.objects.filter(author=user)
+    return render(request, 'quiz_app/my_quizes.html', {'my_quizes': my_quizes})
+
+
+@login_required
+def profile_page(request):
+    user = request.user
+    quizes = Quiz.objects.filter(author=user)
+    quizes_count = quizes.count()
+    profile = Profile.objects.get(user=user)
+    return render(request, 'quiz_app/profile.html', {'user': user, 'quizes_count': quizes_count, 'profile': profile})
+
+
+@login_required
+def edit_profile(request, pk):
+    profile = Profile.objects.get(id=pk)
+    if request.method == 'GET':
+        form = EditProfileForm(instance=profile)
+    else:
+        form = EditProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()          
+            messages.success(request, 'Profile updated successfully')
+            return redirect('profile')
+
+    return render(request, 'quiz_app/edit_profile.html', {'profile': profile, 'form': form})
+
+
+@login_required
+def edit_quiz(request, pk):
+    quiz = Quiz.objects.get(id=pk)
+    if request.method == 'GET':
+        quiz_form = QuizForm(instance=quiz)
+    else:  # POST
+        quiz_form = QuizForm(request.POST, instance=quiz)
+        if quiz_form.is_valid():
+            quiz_form.save()
+            messages.success(request, 'Quiz updated successfully')
+            return redirect('my_quizes')
+            
+    return render(request, 'quiz_app/create_quiz.html', {'quiz_form': quiz_form})
+
+
+@login_required
 def delete_quiz(request, pk):
-    quiz = Quiz.objects.get(pk=1)
+    quiz = Quiz.objects.get(id=pk)
     quiz.delete()
     return redirect('/')
 
-        
+
+@login_required
+def edit_question(request, id):
+    question = Question.objects.get(id=id)
+    if request.method == 'GET':
+        question_form = QuestionForm(instance=question)
+    else:  # POST
+        question_form = QuestionForm(request.POST, instance=question)
+        if question_form.is_valid():
+            question_form.save()
+            messages.success(request, 'Post updated successfully')
+            return redirect('my_quizes')
+            
+    return render(request, 'quiz_app/create_question.html', {'question_form': question_form})
+
+
+@login_required
+def my_questions(request):
+    user = request.user
+    my_questions = Question.objects.filter(author=user)
+    return render(request, 'quiz_app/my_questions.html', {'my_questions': my_questions})
