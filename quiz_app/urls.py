@@ -16,7 +16,12 @@ urlpatterns = [
     path('edit_profile/<int:pk>', views.edit_profile, name='edit_profile'),
     path('edit_quiz/<int:pk>', views.edit_quiz, name='edit_quiz'),
     path('delete_quiz/<int:pk>/', views.delete_quiz, name='delete_quiz'),
-    path('my_questions/', views.my_questions, name='my_questions'),
-    path('edit_question/<int:pk>', views.edit_question, name='edit_question')
-
+    path('quiz_questions/<int:pk>/', views.quiz_questions, name='quiz_questions'),
+    path('edit_question/<int:pk>/', views.edit_question, name='edit_question'),
+    path('delete_question/<int:pk>/', views.delete_question, name='delete_question'),
+    path('author_profile/<str:username>', views.author_profile, name='author_profile'),
+    path('author_quizes/<str:username>', views.author_quizes, name='author_quizes'),
+    path('search_quiz/', views.search_quiz, name='search_quiz'),
+    path('save_ans/', views.save_ans, name='save_ans'),
+    path('result/', views.result, name='result')
 ]

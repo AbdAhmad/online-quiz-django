@@ -5,11 +5,11 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
-            {% if quizes %}
+            {% if author_quizes %}
             <div class="card">
                 <div class="card-header text-white bg-dark">
                     <h4>
-                        Quizes
+                        Quizes by {{ author }}
                     </h4>
                 </div>
             </div>
@@ -25,29 +25,29 @@
                 </div>
             </form>
                 <br>
-                {% for quiz in quizes %}
+                {% for quiz in author_quizes %}
                 <div class="card-header">
                     <h5>
                         {{ quiz.quiz_name }}
                     </h5>
                 </div>
-                <div class="card-body">
-                    <a href="{% url 'quiz' quiz.id %}"><button class="btn btn-primary">Take Quiz</button></a>
-                    <a href="{% url 'author_profile' quiz.author %}"><h6 style="float: right;"> by {{ quiz.author }}</h6></a>
-                </div>
+                <form action="{% url 'quiz' quiz.id %}">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary">Take Quiz</button> 
+                    </div>
+                </form>
                 <br>
                 {% endfor %}
-                {% else %}
-                <div class="card">
-                    <div class="card-header text-white bg-dark">
-                        <h4>
-                            No Quizes
-                        </h4>
-                    </div>
+            </div>
+            {% else %}
+            <div class="card">
+                <div class="card-header text-white bg-dark">
+                    <h4>
+                        No Quizes
+                    </h4>
                 </div>
-                   
+            </div>
             {% endif %}
-        </div>
     </div>
 </div>
 

@@ -1,10 +1,16 @@
-  
 {% extends 'quiz_app/base.html' %}
 {% load static %}
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header text-white bg-dark">
+                        <h4>
+                            My Profile
+                        </h4>
+                </div>
+            </div>
             <div class="card">
                 {% if messages %}
                 {% for message in messages %}
@@ -14,8 +20,8 @@
                 {% endfor %}
                 {% endif %} 
                 <div class="card-header">
-                    <div class="card-title col-md-9 offset-md-3">
-                        <h4 class="col-md-12 offset-md-2">{{ user.username }}</h4> 
+                    <div class="card-title">
+                        <h5 class="col-md-12">Username: {{ user.username }}</h5> 
                     </div>
                 </div>
                 <div class="card-body"> 
@@ -34,11 +40,10 @@
                 </form>
                 <form action="{% url 'my_quizes' %}">
                     <div class="d-grid gap-2 top_margin">
-                        <button class="btn btn-danger">My Blogs : {{ quizes_count }}</button> 
+                        <button class="btn btn-danger">My Quizes : {{ quizes_count }}</button> 
                     </div>
                </form>
            </div>
-
       </div>
  </div>
 </div>

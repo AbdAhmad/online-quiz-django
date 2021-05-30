@@ -2,25 +2,68 @@
 
 {% block content %}
 
+{% if my_quizes %}
 <div class="container">
     <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <div class="card">
-                <div class="card-header">
-                    <h3>
-                        My Quizes
-                    </h3>
-                </div>
-                {% for quiz in my_quizes %}
-                <a href="{% url 'quiz' quiz.id %}">{{ quiz.quiz_name }}</a>
-                <br>
-                <a href="{% url 'edit_quiz' quiz.id %}">Edit Quiz</a>
-                <br>
-                <a href="{% url 'delete_quiz' quiz.id %}">Delete Quiz</a>
+        <div class="col-md-8 offset-md-2">      
+            {% if messages %}
+                {% for message in messages %}
+                    <div id="message_container" class="alert alert-success">
+                        {{ message }}
+                    </div>
                 {% endfor %}
+            {% endif %}    
+            <div class="card">
+                <div class="card-header text-white bg-dark">
+                    <h4>
+                        My Quizes
+                    </h4>
+                </div>
+            </div>
+            <br>
+                {% for quiz in my_quizes %}
+                <div class="card">
+                <div class="card-header">
+                    <h5>
+                        {{ quiz.quiz_name }}
+                    </h5>
+                </div>
+                <form action="{% url 'edit_quiz' quiz.id %}">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary">Edit Quiz</button> 
+                    </div>
+                </form>
+                <form action="{% url 'delete_quiz' quiz.id %}">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-danger">Delete Quiz</button> 
+                    </div>
+                </form>
+                <form action="{% url 'quiz_questions' quiz.id %}">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-secondary">Quiz Questions</button> 
+                    </div>
+                </form>
+                <br>
+                </div>
+                {% endfor %}
+            {% else %}
+            <div class="card col-md-8 offset-md-2">
+                <div class="card-header text-white bg-dark">
+                    <h4>
+                        No Quizes
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'create_quiz' %}">
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary">Create Quizes</button> 
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+{% endif %}
 
 {% endblock %}

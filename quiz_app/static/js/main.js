@@ -1,3 +1,21 @@
+window.load = initAll();
+var saveAnsButton;
+function initAll(){
+    alert('alert')
+    saveAnsButton = document.getElementById('save_ans');
+    saveAnsButton.onclick = saveAns();
+}
+
+function saveAns(){
+    var ans = $('input:radio[name=name]:checked').val();
+    var req = new XMLHttpRequest();
+    var url = '/save_ans?ans=' + ans;
+    alert(ans)
+    req.open('GET', url, true);
+    req.send();
+}
+
+
 function signupPasswordOneVisibilityToggle() {
     let passwordOne = document.getElementById("passwordOne");
         if (passwordOne.type === "password") {

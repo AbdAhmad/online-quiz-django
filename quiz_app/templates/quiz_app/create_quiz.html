@@ -1,6 +1,8 @@
 {% extends 'quiz_app/base.html' %}
 {% load crispy_forms_tags %}
+{% crispy quiz_form quiz_form.helper %}
 {% block content %}
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
@@ -11,13 +13,21 @@
                 </div>
             {% endfor %}
             {% endif %}
+            <div class="card col-md-12">
+                <div class="card-header text-white bg-dark">
+                        <h4>
+                            Create Quiz
+                        </h4>
+                </div>
+            </div>
             <div class="card">
                 <form method="POST">
+                    <br>
                     {% csrf_token %}
-                    {{ quiz_form|crispy }}
+                    {{ quiz_form.quiz_name|as_crispy_field }}
                     <br>
                     <div class="d-grid gap-2 ">
-                        <button class="btn btn-primary" type="submit">Create Quiz</button>
+                        <button class="btn btn-primary" type="submit">{{ button_name }}</button>
                     </div>
                 </form>
             </div>

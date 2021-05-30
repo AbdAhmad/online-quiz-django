@@ -1,0 +1,58 @@
+{% extends 'quiz_app/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            {% if quiz_questions %}
+            <div class="card">
+                <div class="card-header text-white bg-dark">
+                    <h4>
+                        {{ quiz.quiz_name }} Questions
+                    </h4>
+                </div>
+            </div>
+            <br>
+            {% for question in quiz_questions %}
+            <div class="card">
+                <div class="card-header">
+                    <h5>
+                        {{ question }}
+                    </h5>
+                </div>
+                <form action="{% url 'edit_question' question.id %}">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary">Edit Question</button> 
+                    </div>
+                </form>
+                <form action="{% url 'delete_question' question.id %}">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-danger">Delete Question</button> 
+                    </div>
+                </form>
+            </div>
+            <br>
+            {% endfor %}
+            {% else %}
+            <div class="card">
+                <div class="card-header text-white bg-dark">
+                    <h4>
+                        No Questions
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'create_question' %}">
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary">Add Questions</button> 
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

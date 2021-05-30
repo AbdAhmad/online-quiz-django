@@ -1,5 +1,5 @@
 {% extends 'quiz_app/base.html' %}
-
+{% load static %}
 {% block content %}
     <div class="container">
         <div class="row">
@@ -12,20 +12,17 @@
                 {% endfor %}
                 {% endif %}
                 <div class="card">
-                    <div class="card-header">
-                        <div class="card-title offset-md-4">
-                            <h3>
-                                Welcome to Quiz
-                            </h3>
+                    <div class="card-header text-white bg-dark">
+                            <h4 class="col-md-12 offset-md-5">
+                                Welcome
+                            </h4>
+                    </div>
+                    <img src="{% static 'welcome.jpg' %}" width="100%">
+                    <form action="{% url 'quizes' %}">
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" type="submit">Quizes</button>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <form action="{% url 'quizes' %}">
-                            <div class="d-grid gap-2">
-                                <button class="btn btn-primary" type="submit">Quizes</button>
-                            </div>
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
