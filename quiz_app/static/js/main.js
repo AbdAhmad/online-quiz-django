@@ -1,16 +1,8 @@
-window.load = initAll();
-var saveAnsButton;
-function initAll(){
-    alert('alert')
-    saveAnsButton = document.getElementById('save_ans');
-    saveAnsButton.onclick = saveAns();
-}
-
 function saveAns(){
-    var ans = $('input:radio[name=name]:checked').val();
+    var user_ans = $("input:radio[name=name]:checked").val();
+    var quiz_id = $("input:hidden[name=answer]").val();
     var req = new XMLHttpRequest();
-    var url = '/save_ans?ans=' + ans;
-    alert(ans)
+    var url = '/save_ans?user_ans=' + user_ans + '?quiz_id=' + quiz_id;
     req.open('GET', url, true);
     req.send();
 }
@@ -49,3 +41,4 @@ function setTimer(){
     message_ele.style.display = "none"; 
     }, 3000);
 }
+

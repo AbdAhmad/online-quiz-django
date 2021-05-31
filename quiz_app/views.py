@@ -222,20 +222,28 @@ def search_quiz(request):
 
 
 def quiz(request, id):
-    quiz_name = Quiz.objects.get(id=id)
+    quiz = Quiz.objects.get(id=id)
     questions = Question.objects.filter(quiz=id)  
     paginator = Paginator(questions, 1)
     page = request.GET.get('page')
     questions = paginator.get_page(page)
 
-    return render(request, 'quiz_app/quiz.html', {'questions': questions, 'quiz_name': quiz_name})
+    return render(request, 'quiz_app/quiz.html', {'questions': questions, 'quiz': quiz})
 
     
 
 def save_ans(request):
-    ans = request.GET['ans']
-    print(ans)
+    user_ans_list = []
+    ans_list = []
+    user_ans = request.GET['user_ans']
+    user_id = user_ans.split('=')
+    print(user_id[-1])
+    quiz = Quiz.objects.get(id=str(id))
+    questions = Questions.objects.filter(quiz=id)
+    return render(request, 'quiz_app/result.html', {'questions': questions})
 
-
+    
+    
 def result(request):
+
     return render(request, 'quiz_app/result.html')

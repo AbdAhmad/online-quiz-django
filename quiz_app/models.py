@@ -19,8 +19,8 @@ class Question(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     option_one = models.CharField(max_length=100)
     option_two = models.CharField(max_length=100)
-    option_three = models.CharField(max_length=100, blank=True)
-    option_four = models.CharField(max_length=100, blank=True)
+    option_three = models.CharField(max_length=100)
+    option_four = models.CharField(max_length=100)
     answer = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
 

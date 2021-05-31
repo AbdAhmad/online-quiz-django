@@ -10,17 +10,15 @@
                 <div class="card-header text-white bg-dark">
                     <div class="card-title">
                         <h4>
-                            {{ quiz_name }}
+                            {{ quiz.quiz_name }}
                         </h4>
                     </div>
                 </div>
             </div>
                 <br>
-               
-                   
                     {% for question in questions %}
+                
                     <div class="card">
-                    <form action="" method="get">
                         <h6 class="input_padding">{{ question }}</h6>
                         <label class="input_padding"><input type="radio" name="name" value="{{question.option_one}}"> {{question.option_one}}</label>
                         <br>
@@ -29,22 +27,24 @@
                         <label class="input_padding"><input type="radio" name="name" value="{{question.option_three}}"> {{question.option_three}}</label>
                         <br>
                         <label class="input_padding"><input type="radio" name="name" value="{{question.option_four}}"> {{question.option_four}}</label>
-                    </form>
                     </div>
+               
                     <br>
                     {% endfor %}
+                    <input type="hidden" name="answer" value="{{quiz.id}}" >
                     <div class="form-group">
-                        <button id="save_ans" class="btn btn-success" type="submit">Submit Answer</button>
+                        <button id="save_ans" onclick="saveAns()" class="btn btn-success">Submit Answer</button>
                     </div>
                     <div class="paginator top_margin">
                         <div class="form-group">
                             {% if questions.has_next %}
                             <a href="?page={{ questions.next_page_number }}"><button class="btn form-control btn-primary" id="submitAnswer">Next</button></a>
                             {% else %}
-                            <a href="{% url 'result' %}"><button class="btn form-control btn-success" id="submitAnswer">Submit Quiz</button></a>
+                            <a href="{% url 'result' %}"><button class="btn form-control btn-success" id="submitAnswer" type="submit">Submit Quiz</button></a>
                             {% endif %}
                         </div>
                     </div>
+                    
             {% else %}
             <div class="card">
                 <div class="card-header text-white bg-dark">
