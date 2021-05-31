@@ -1,13 +1,3 @@
-function saveAns(){
-    var user_ans = $("input:radio[name=name]:checked").val();
-    var quiz_id = $("input:hidden[name=answer]").val();
-    var req = new XMLHttpRequest();
-    var url = '/save_ans?user_ans=' + user_ans + '?quiz_id=' + quiz_id;
-    req.open('GET', url, true);
-    req.send();
-}
-
-
 function signupPasswordOneVisibilityToggle() {
     let passwordOne = document.getElementById("passwordOne");
         if (passwordOne.type === "password") {

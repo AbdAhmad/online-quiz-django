@@ -7,7 +7,6 @@ from .models import Quiz, Question, Profile
 from .forms import QuestionForm, QuizForm, EditProfileForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator 
 # Create your views here.
 
 def signup(request):
@@ -78,6 +77,7 @@ def welcome(request):
 
 
 def quizes(request):
+    #fetching the latest quize first
     quizes = Quiz.objects.all().order_by('-created_at')
     return render(request, 'quiz_app/quizes.html', {'quizes': quizes})
 
@@ -223,27 +223,7 @@ def search_quiz(request):
 
 def quiz(request, id):
     quiz = Quiz.objects.get(id=id)
-    questions = Question.objects.filter(quiz=id)  
-    paginator = Paginator(questions, 1)
-    page = request.GET.get('page')
-    questions = paginator.get_page(page)
-
+    questions = Question.objects.filter(quiz=id)
     return render(request, 'quiz_app/quiz.html', {'questions': questions, 'quiz': quiz})
 
-    
 
-def save_ans(request):
-    user_ans_list = []
-    ans_list = []
-    user_ans = request.GET['user_ans']
-    user_id = user_ans.split('=')
-    print(user_id[-1])
-    quiz = Quiz.objects.get(id=str(id))
-    questions = Questions.objects.filter(quiz=id)
-    return render(request, 'quiz_app/result.html', {'questions': questions})
-
-    
-    
-def result(request):
-
-    return render(request, 'quiz_app/result.html')

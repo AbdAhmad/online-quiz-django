@@ -1,7 +1,8 @@
 {% extends 'quiz_app/base.html' %}
 
 {% block content %}
-<div id="displaytimer"><b>Timer: 0 seconds</b></div>
+
+<div id="displaytimer"><b>0</b></div>
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
@@ -17,45 +18,39 @@
             </div>
                 <br>
                     {% for question in questions %}
-                
                     <div class="card">
                         <h6 class="input_padding">{{ question }}</h6>
-                        <label class="input_padding"><input type="radio" name="name" value="{{question.option_one}}"> {{question.option_one}}</label>
-                        <br>
-                        <label class="input_padding"><input type="radio" name="name" value="{{question.option_two}}"> {{question.option_two}}</label>
-                        <br>
-                        <label class="input_padding"><input type="radio" name="name" value="{{question.option_three}}"> {{question.option_three}}</label>
-                        <br>
-                        <label class="input_padding"><input type="radio" name="name" value="{{question.option_four}}"> {{question.option_four}}</label>
-                    </div>
-               
-                    <br>
+                        <label class="input_padding"><input class="rb" type="radio" name="{{question.id}}" value="{{question.option_one}}"> {{question.option_one}}</label>
+                        <label class="input_padding"><input class="rb" type="radio" name="{{question.id}}" value="{{question.option_two}}"> {{question.option_two}}</label>
+                        <label class="input_padding"><input class="rb" type="radio" name="{{question.id}}" value="{{question.option_three}}"> {{question.option_three}}</label>
+                        <label class="input_padding"><input class="rb" type="radio" name="{{question.id}}" value="{{question.option_four}}"> {{question.option_four}}</label>
+                        <label style="display: none; color: green" class="correct_ans"><b>{{question.answer}}</b></label>
+                    </div> 
+                    <hr>
                     {% endfor %}
-                    <input type="hidden" name="answer" value="{{quiz.id}}" >
-                    <div class="form-group">
-                        <button id="save_ans" onclick="saveAns()" class="btn btn-success">Submit Answer</button>
+                    <div class="d-grid gap-2 ">
+                        <button class="btn btn-success">Check Answers</button>
                     </div>
-                    <div class="paginator top_margin">
-                        <div class="form-group">
-                            {% if questions.has_next %}
-                            <a href="?page={{ questions.next_page_number }}"><button class="btn form-control btn-primary" id="submitAnswer">Next</button></a>
-                            {% else %}
-                            <a href="{% url 'result' %}"><button class="btn form-control btn-success" id="submitAnswer" type="submit">Submit Quiz</button></a>
-                            {% endif %}
+                    {% else %}
+                    <div class="card">
+                        <div class="card-header text-white bg-dark">
+                            <h4>
+                                No Questions
+                            </h4>
                         </div>
                     </div>
-                    
-            {% else %}
-            <div class="card">
-                <div class="card-header text-white bg-dark">
-                    <h4>
-                        No Questions
-                    </h4>
-                </div>
-            </div>
-            {% endif %}
+                    {% endif %}
         </div>
     </div>
 </div>
+
+<script>
+        $(document).ready(function(){
+            $('.btn').click(function(){ 
+                $('.correct_ans').show();
+                $('.rb').attr('disabled', true);
+            });
+        });
+</script>
 
 {% endblock %}

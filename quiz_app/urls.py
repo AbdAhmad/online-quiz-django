@@ -22,6 +22,4 @@ urlpatterns = [
     path('author_profile/<str:username>', views.author_profile, name='author_profile'),
     path('author_quizes/<str:username>', views.author_quizes, name='author_quizes'),
     path('search_quiz/', views.search_quiz, name='search_quiz'),
-    path('save_ans/', views.save_ans, name='save_ans'),
-    path('result/', views.result, name='result')
 ]
