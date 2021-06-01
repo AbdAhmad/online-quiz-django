@@ -1,5 +1,3 @@
-# from django.db.models.query_utils import Q
-from django.core import paginator
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
@@ -7,7 +5,6 @@ from .models import Quiz, Question, Profile
 from .forms import QuestionForm, QuizForm, EditProfileForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-# Create your views here.
 
 def signup(request):
     if request.method == 'POST':
