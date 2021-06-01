@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'quiz_app',
     'crispy_forms',
-    'active_link',
 ]
 
 MIDDLEWARE = [

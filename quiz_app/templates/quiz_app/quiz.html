@@ -2,7 +2,6 @@
 
 {% block content %}
 
-<div id="displaytimer"><b>0</b></div>
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
@@ -24,7 +23,7 @@
                         <label class="input_padding"><input class="rb" type="radio" name="{{question.id}}" value="{{question.option_two}}"> {{question.option_two}}</label>
                         <label class="input_padding"><input class="rb" type="radio" name="{{question.id}}" value="{{question.option_three}}"> {{question.option_three}}</label>
                         <label class="input_padding"><input class="rb" type="radio" name="{{question.id}}" value="{{question.option_four}}"> {{question.option_four}}</label>
-                        <label style="display: none; color: green" class="correct_ans"><b>{{question.answer}}</b></label>
+                        <label style="display: none; color: green" class="correct_ans"><b>Correct Answer: {{question.answer}}</b></label>
                     </div> 
                     <hr>
                     {% endfor %}
