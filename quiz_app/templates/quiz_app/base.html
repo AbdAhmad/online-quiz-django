@@ -22,9 +22,7 @@
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
               {% if user.is_authenticated %}
-              <li class="nav-item {% active_link 'create_quiz' 'active' %}">
-                <a class="nav-link text-white" href="{% url 'create_quiz' %}">Create Quiz</a>
-              </li>
+              <a class="nav-link text-white" href="{% url 'create_quiz' %}">Create Quiz</a>
               <a class="nav-link text-white" href="{% url 'create_question' %}">Create Question</a>
               <a class="nav-link text-white" href="{% url 'my_quizes' %}">My Quizes</a>
               <a class="nav-link text-white" href="{% url 'logout' %}">Logout</a>
